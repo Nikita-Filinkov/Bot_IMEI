@@ -5,7 +5,31 @@ import requests
 
 
 class IMEICheckBot:
+    """
+    Класс для проверки IMEI устройств с помощью сервиса imeicheck.net.
+
+    Attributes:
+        token_api_imei (str): Токен API для сервиса imeicheck.net.
+        imei (str): IMEI устройства, который нужно проверить.
+        url (str): URL для отправки запроса на сервер imeicheck.net.
+        headers (dict): Заголовки HTTP-запроса.
+        body (str): Тело HTTP-запроса в формате JSON.
+
+    Methods:
+        info(): Метод для получения информации о устройстве по IMEI.
+
+    """
     def __init__(self, imei):
+        """
+            Инициализация класса с указанием токена API и IMEI устройства.
+
+            Args:
+                imei (str): IMEI устройства, который нужно проверить.
+
+            Raises:
+                ValueError: Если IMEI не является строкой или его длина меньше 15 символов.
+
+        """
         self.token_api_imei = config('TOKEN_API_IMEI')
         self.imei = imei
         self.url = 'https://api.imeicheck.net/v1/checks'
@@ -20,6 +44,17 @@ class IMEICheckBot:
         })
 
     def info(self):
+        """
+            Метод для получения информации об устройстве по IMEI.
+
+            Returns:
+                str: Информация об устройстве в формате строки.
+
+            Raises:
+                requests.exceptions. RequestException: Если произошла ошибка при отправке запроса на
+                сервер imeicheck.net.
+
+        """
         try:
 
             data_imei = requests.post(self.url, headers=self.headers, data=self.body)
