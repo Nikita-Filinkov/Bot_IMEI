@@ -24,10 +24,6 @@ class IMEICheckBot:
 
             data_imei = requests.post(self.url, headers=self.headers, data=self.body)
 
-        except requests.exceptions.HTTPError as http_err:
-            print(f"HTTP error: {http_err}")
-            return {"status_code": data_imei.status_code, "error": str(http_err)}
-
         except requests.exceptions.RequestException as req_err:
             print(f"Request error: {req_err}")
             return {"status_code": None, "error": str(req_err)}
@@ -50,6 +46,3 @@ class IMEICheckBot:
         )
 
         return text
-
-
-
